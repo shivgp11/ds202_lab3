@@ -1,0 +1,50 @@
+---
+title: "ds202_lab3"
+author: "Shiv Patel"
+date: "10/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+GSS <- read_excel("GSS.xls")
+GSS
+```
+
+```{r}
+GSS$`Highest year of school completed`= strtoi(GSS$`Highest year of school completed`)
+GSS = GSS %>% drop_na()
+GSS
+temp = GSS %>% group_by(`Marital status`) %>% summarize(edu = mean(`Highest year of school completed`))
+temp
+```
+1. People that did not answer have the highest years of education, which I find very strange. I cannot make any connections between marital status and years of education based on this output. 
+
+```{r}
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('Divorced') &  `Highest year of school completed` > 13.10582)
+temp
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('Married') &  `Highest year of school completed` > 12.96828)
+temp
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('Never married') &  `Highest year of school completed` > 13.38954)
+temp
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('No answer') &  `Highest year of school completed` > 15.47826)
+temp
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('Separated') &  `Highest year of school completed` > 11.85580)
+temp
+temp = GSS %>% group_by(`Marital status`) %>% filter(`Marital status`%in% c('Widowed') &  `Highest year of school completed` > 11.19825)
+temp
+str(GSS)
+```
+
+
+
